@@ -1,0 +1,86 @@
+﻿@model DAL_Layer.Model.User
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/UserStyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <p>Register as User</p>
+    <hr />
+    <form action="submit" method="post">
+        <table>
+            <tr>
+                <td></td>
+                <td><b>Image Preview</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <img src="~/Content/Placeholder_view_vector.svg.png" id ="placehold" style="max-width: 120px; max-height: 160px";>
+                    <img id="output" style="max-width: 130px; max-height: 170px;">
+                </td>
+                <script>
+                    var loadFile = function (event) {
+
+                        var output = document.getElementById('output');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.onload = function () {
+                            URL.revokeObjectURL(output.src)
+                            document.getElementById("placehold").style.display = 'none';
+                        }
+                    };
+                </script>
+            </tr>
+            <tr>
+                <td></td>
+                <td><b>Your Profile Pic</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input id =" output" type="file" accept="image/*" onchange="loadFile(event)" ></td>
+            </tr>
+            <tr>
+                <td class="left"><b>UserName: </b></td>
+                <td>
+                    @Html.TextBoxFor(m => m.userName, new { @placeholder = "User Name" })
+                    @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
+                </td>
+                
+                
+            </tr>
+            <tr>
+                <td class="left"><b>Email Address: </b></td>
+                <td>@Html.TextBoxFor(m => m.emailAddress, new { @placeholder = "Email ID" })
+                @Html.ValidationMessageFor(m => m.emailAddress, "", new { @class = "text-danger" })</td>
+                
+            </tr>
+            <tr>
+                <td class="left"><b>Password: </b></td>
+                <td>
+                    @Html.PasswordFor(m => m.password, new { @placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                           </td>
+            </tr>
+            <tr>
+                <td class="left"><b>Confirm Password: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></td>
+                <td>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                            </td>
+            </tr>
+
+
+        </table>
+        <hr />
+        <input type="submit" id="submit" value="Sign up">
+    </form>
+</body>
+</html>
